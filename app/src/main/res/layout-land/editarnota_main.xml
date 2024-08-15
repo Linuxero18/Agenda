@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginLeft="40dp"
+    android:background="#f4f4f4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="35dp">
+
+        <ImageButton
+            android:id="@+id/btn_regresar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Regresar"
+            android:src="@drawable/flecha_agregarnota"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_titulo_nota_principal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingBottom="15dp"
+            android:text="Editar Nota"
+            android:textColor="#3F51B5"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_titulo_nota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Título de la nota"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/et_contenido_nota"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="top"
+        android:hint="Escribe tu nota aquí..."
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        android:scrollbars="vertical"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_agregar_foto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar Fotografía"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FF4081"
+            android:textSize="16sp"
+            android:elevation="4dp"
+            android:layout_marginEnd="20dp"/>
+
+        <Button
+            android:id="@+id/btn_actualizar_nota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3F51B5"
+            android:textSize="16sp"
+            android:elevation="4dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="35dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

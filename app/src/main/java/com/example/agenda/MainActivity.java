@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,15 +18,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int AGREGAR_NOTA_CODE = 1;
     private static final int EDITAR_NOTA_CODE = 2;
     private LinearLayout contenedorNotas;
-    private FloatingActionButton btn_agregar_nota;
+    private FloatingActionButton btn_agregar_nota, btn_eliminar_nota, btn_cancelar_eliminacion;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private ImageButton btn_regresar;
+    private List<String> notasSeleccionadasIds = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,43 @@ public class MainActivity extends AppCompatActivity {
         contenedorNotas = findViewById(R.id.contenedorNotas);
         btn_agregar_nota = findViewById(R.id.btn_agregar_nota);
         btn_regresar = findViewById(R.id.btn_regresar);
+        btn_eliminar_nota = findViewById(R.id.btn_eliminar_nota);
+        btn_cancelar_eliminacion = findViewById(R.id.btn_cancelar_eliminacion);
 
-        btn_agregar_nota.setOnClickListener(v -> agregarNota());
+        btn_agregar_nota.setOnClickListener(v -> agregarNota(this));
         btn_regresar.setOnClickListener(v -> regresar(this));
+        btn_eliminar_nota.setOnClickListener(v -> eliminarNotasSeleccionadas(this));
+
+        btn_cancelar_eliminacion.setOnClickListener(v -> cargarNotas());
+
         cargarNotas();
     }
+
+    private void eliminarNotasSeleccionadas(Context c) {
+        if (notasSeleccionadasIds.isEmpty()) {
+            Toast.makeText(MainActivity.this, "No has seleccionado ninguna nota", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String uid = mAuth.getCurrentUser().getUid();
+        for (String notaId : notasSeleccionadasIds) {
+            db.collection("usuario")
+                    .document(uid)
+                    .collection("notas")
+                    .document(notaId)
+                    .delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, "notas eliminadas con exito!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error al eliminar la nota: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+        notasSeleccionadasIds.clear();
+        recargarNotas();
+    }
+
 
     private void regresar(Context c){
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -52,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void agregarNota() {
+    private void agregarNota(Context c) {
         Intent intent = new Intent(MainActivity.this, AgregarNotaActivity.class);
         startActivityForResult(intent, AGREGAR_NOTA_CODE);
     }
@@ -66,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cargarNotas() {
+        btn_cancelar_eliminacion.setVisibility(View.GONE);
         String uid = mAuth.getCurrentUser().getUid();
 
         db.collection("usuario")
@@ -93,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
     private void agregarNotas(Nota nota) {
         View v = getLayoutInflater().inflate(R.layout.item_nota, null);
@@ -125,12 +160,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        v.setOnLongClickListener(view -> {
+            String notaId = nota.getId();
+            if (notasSeleccionadasIds.contains(notaId)) {
+                notasSeleccionadasIds.remove(notaId);
+            } else {
+                notasSeleccionadasIds.add(notaId);
+                v.setBackgroundResource(R.drawable.nota_seleccionada);
+            }
+
+            if (notasSeleccionadasIds.isEmpty()) {
+                btn_cancelar_eliminacion.setVisibility(View.GONE);
+            } else {
+                btn_cancelar_eliminacion.setVisibility(View.VISIBLE);
+            }
+
+            Toast.makeText(MainActivity.this, "Notas seleccionadas: " + notasSeleccionadasIds.size(), Toast.LENGTH_SHORT).show();
+            return true;
+        });
+
+
         v.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, EditarNotaActivity.class);
             intent.putExtra("notaId", nota.getId());
             intent.putExtra("titulo", nota.getTitulo());
             intent.putExtra("contenido", nota.getContenido());
-            intent.putExtra("tiempo", nota.getTiempo());
             startActivityForResult(intent, EDITAR_NOTA_CODE);
         });
 
@@ -144,4 +198,11 @@ public class MainActivity extends AppCompatActivity {
         divider.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         contenedorNotas.addView(divider);
     }
+
+    private void recargarNotas() {
+        btn_cancelar_eliminacion.setVisibility(View.GONE);
+        contenedorNotas.removeAllViews();
+        cargarNotas();
+    }
+
 }

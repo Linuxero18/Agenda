@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/main_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -50,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!-- Aquí puedes agregar dinámicamente tus notas -->
         </LinearLayout>
     </ScrollView>
 
@@ -65,5 +67,32 @@
         app:backgroundTint="@color/lime"
         app:tint="@android:color/black"
         android:contentDescription="Añadir nueva nota"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_eliminar_nota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/eliminar"
+        app:backgroundTint="@color/red"
+        app:tint="@android:color/white"
+        android:contentDescription="Eliminar nota seleccionada"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_cancelar_eliminacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="225dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/cancelar"
+        app:backgroundTint="@color/gray"
+        app:tint="@android:color/white"
+        android:contentDescription="Cancelar eliminación"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo del ítem -->
+    <solid android:color="#F1A3A3"/> <!-- Color de fondo del ítem -->
+    <corners android:radius="8dp"/> <!-- Esquinas redondeadas -->
+    <stroke
+        android:width="2dp"
+        android:color="#FA0000"/> <!-- Color del borde -->
+    <padding
+        android:left="12dp"
+        android:right="12dp"
+        android:top="12dp"
+        android:bottom="12dp"/> <!-- Padding interno -->
+</shape>

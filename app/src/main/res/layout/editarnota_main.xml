@@ -52,14 +52,6 @@
             android:textStyle="bold"
             android:padding="12dp"/>
 
-        <ImageView
-            android:id="@+id/imagenItemNota"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            android:layout_marginTop="16dp"/>
-
         <EditText
             android:id="@+id/et_contenido_nota"
             android:layout_width="match_parent"

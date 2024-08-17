@@ -7,14 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,11 +24,8 @@ public class EditarNotaActivity extends AppCompatActivity {
     private ImageButton btn_regresar;
     private EditText et_titulo_nota, et_contenido_nota;
     private Button btn_actualizar_nota;
-    private ImageView imagenItemNota;
     private FirebaseFirestore db;
-    private FirebaseStorage storage;
     private String notaId;
-    private String imagenUrl;  // URL de la imagen actual
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,33 +34,19 @@ public class EditarNotaActivity extends AppCompatActivity {
         setContentView(R.layout.editarnota_main);
 
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
 
         btn_regresar = findViewById(R.id.btn_regresar);
         et_titulo_nota = findViewById(R.id.et_titulo_nota);
         et_contenido_nota = findViewById(R.id.et_contenido_nota);
         btn_actualizar_nota = findViewById(R.id.btn_guardar_nota);
-        imagenItemNota = findViewById(R.id.imagenItemNota);
 
         Intent intent = getIntent();
         notaId = intent.getStringExtra("notaId");
         String titulo = intent.getStringExtra("titulo");
         String contenido = intent.getStringExtra("contenido");
-        imagenUrl = intent.getStringExtra("imagenUrl");
 
         et_titulo_nota.setText(titulo);
         et_contenido_nota.setText(contenido);
-
-        if (imagenUrl != null) {
-            StorageReference imageRef = storage.getReferenceFromUrl(imagenUrl);
-            imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                imagenItemNota.setVisibility(View.VISIBLE);
-            }).addOnFailureListener(exception -> {
-                Log.e("EditarNotaActivity", "Error al cargar la imagen", exception);
-            });
-        } else {
-            imagenItemNota.setVisibility(View.GONE);
-        }
 
         btn_regresar.setOnClickListener(v -> regresar());
         btn_actualizar_nota.setOnClickListener(v -> editarNota());
@@ -88,7 +68,6 @@ public class EditarNotaActivity extends AppCompatActivity {
         sdf.setTimeZone(TimeZone.getTimeZone("America/Lima"));
         String tiempoModificado = sdf.format(new Date());
         updatedNota.put("tiempo", tiempoModificado);
-        updatedNota.put("imagenUrl", imagenUrl);
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -102,11 +81,10 @@ public class EditarNotaActivity extends AppCompatActivity {
                         intent.putExtra("titulo", tituloNota);
                         intent.putExtra("contenido", contenidoNota);
                         intent.putExtra("tiempo", tiempoModificado);
-                        intent.putExtra("imagenUrl", imagenUrl);
                         setResult(RESULT_OK, intent);
                         finish();
                     } else {
-                        Log.e("EditarNotaActivity", "Error al actualizar la nota", task.getException());
+                        Log.e("EditarNotaActivity", "Error al actualizar la nota, Es posible que haya sido eliminada en la base de datos.");
                         Toast.makeText(EditarNotaActivity.this, "Error al actualizar la nota: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });

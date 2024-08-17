@@ -6,7 +6,6 @@ public class Nota {
     private String contenido;
     private String tiempo;
     private String uid;
-//    private String imagen;
 
     public Nota() {
 
@@ -17,7 +16,6 @@ public class Nota {
         this.titulo = titulo;
         this.contenido = contenido;
         this.tiempo = tiempo;
-//        this.imagen = imagen;
     }
 
     public String getId() {
@@ -60,12 +58,5 @@ public class Nota {
         this.uid = uid;
     }
 
-//    public String getImagen() {
-//        return imagen;
-//    }
-//
-//    public boolean hasImagen() {
-//        return imagen != null && !imagen.isEmpty();
-//    }
 }
 

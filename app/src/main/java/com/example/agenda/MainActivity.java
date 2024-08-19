@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 import com.example.agenda.modelo.Nota;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private ImageButton btn_regresar;
+    private ImageView foto_perfil;
     private List<String> notasSeleccionadasIds = new ArrayList<>();
 
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btn_regresar = findViewById(R.id.btn_regresar);
         btn_eliminar_nota = findViewById(R.id.btn_eliminar_nota);
         btn_cancelar_eliminacion = findViewById(R.id.btn_cancelar_eliminacion);
+        foto_perfil = findViewById(R.id.foto_perfil);
 
         btn_agregar_nota.setOnClickListener(v -> agregarNota(this));
         btn_regresar.setOnClickListener(v -> regresar(this));
@@ -54,7 +59,31 @@ public class MainActivity extends AppCompatActivity {
         btn_cancelar_eliminacion.setOnClickListener(v -> cargarNotas());
 
         cargarNotas();
+        cargarPerfilUsuario();
     }
+
+    private void cargarPerfilUsuario() {
+        String uid = mAuth.getCurrentUser().getUid();
+
+        db.collection("usuario").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String imagenUrl = documentSnapshot.getString("imagenUrl");
+                if (imagenUrl != null && !imagenUrl.isEmpty()) {
+                    Glide.with(this)
+                            .load(imagenUrl)
+                            .placeholder(R.drawable.perfil_predeterminado)
+                            .into(foto_perfil);
+                } else {
+                    foto_perfil.setImageResource(R.drawable.perfil_predeterminado);
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "Documento no existe", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(MainActivity.this, "Error al cargar el perfil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
 
     private void eliminarNotasSeleccionadas(Context c) {
         if (notasSeleccionadasIds.isEmpty()) {

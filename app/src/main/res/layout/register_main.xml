@@ -10,10 +10,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="15dp"
         android:text="REGISTRATE"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/Img_perfil"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="1dp"
+        android:src="@drawable/perfil_predeterminado"
+        android:background="@drawable/border_item"
+        android:contentDescription="Foto de perfil"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/btn_seleccionar_foto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="Seleccionar Foto" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -96,7 +115,6 @@
             android:background="?attr/selectableItemBackground"
             android:contentDescription="Regresar"
             android:src="@drawable/flecha_register"
-
             android:layout_marginEnd="16dp"/>
 
         <Button

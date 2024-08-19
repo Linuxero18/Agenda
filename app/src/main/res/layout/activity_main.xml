@@ -39,6 +39,15 @@
             android:textColor="#3F51B5"
             android:textSize="32sp"
             android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/foto_perfil"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="Foto de perfil"
+            android:layout_marginLeft="65dp"
+            android:src="@drawable/perfil_predeterminado"/>
+
     </LinearLayout>
 
     <ScrollView

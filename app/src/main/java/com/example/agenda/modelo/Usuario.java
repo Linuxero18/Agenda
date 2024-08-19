@@ -7,6 +7,7 @@ public class Usuario {
     private String apellidos;
     private int telefono;
     private String correo;
+    private String imagenUrl;
 
     public Usuario() {
     }
@@ -66,5 +67,13 @@ public class Usuario {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getimagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setimagenUrl(String imagenUrl) {
+        imagenUrl = imagenUrl;
     }
 }

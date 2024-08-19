@@ -3,6 +3,7 @@ package com.example.agenda;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         db.collection("usuario").document(uid).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 String imagenUrl = documentSnapshot.getString("imagenUrl");
+                Log.d("MainActivity", "Imagen URL: " + imagenUrl);
                 if (imagenUrl != null && !imagenUrl.isEmpty()) {
                     Glide.with(this)
                             .load(imagenUrl)
@@ -81,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> {
             Toast.makeText(MainActivity.this, "Error al cargar el perfil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Error al cargar el perfil: ", e);
         });
     }
-
 
     private void eliminarNotasSeleccionadas(Context c) {
         if (notasSeleccionadasIds.isEmpty()) {

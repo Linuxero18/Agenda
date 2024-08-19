@@ -74,6 +74,6 @@ public class Usuario {
     }
 
     public void setimagenUrl(String imagenUrl) {
-        imagenUrl = imagenUrl;
+        this.imagenUrl = imagenUrl;
     }
 }

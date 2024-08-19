@@ -1,114 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="#f4f4f4">
+    android:orientation="horizontal"
+    android:layout_marginLeft="50dp"
+    android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:paddingBottom="20dp"
-            android:text="REGÍSTRATE"
+            android:paddingBottom="15dp"
+            android:text="REGISTRATE"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#3F51B5"/>
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Nombre de Usuario"
-            android:inputType="text"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
+        <ImageView
+            android:id="@+id/Img_perfil"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/perfil_predeterminado"
+            android:background="@drawable/border_item"
+            android:contentDescription="Foto de perfil"
+            android:scaleType="centerCrop" />
 
-        <EditText
-            android:id="@+id/nombres"
-            android:layout_width="400dp"
+        <Button
+            android:id="@+id/btn_seleccionar_foto"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Nombres"
-            android:inputType="text"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
+            android:layout_marginTop="8dp"
+            android:text="Seleccionar Foto" />
 
-        <EditText
-            android:id="@+id/apellidos"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Apellidos"
-            android:inputType="text"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/numeroTelefonico"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Teléfono"
-            android:inputType="phone"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Correo Electrónico"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:gravity="center_horizontal">
 
-            <ImageButton
-                android:id="@+id/btn_regresar"
-                android:layout_width="48dp"
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="?attr/selectableItemBackground"
-                android:contentDescription="Regresar"
-                android:src="@drawable/flecha_register"
-                android:layout_marginRight="70dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:hint="Nombre de Usuario"
+                android:inputType="text"
+                android:background="@android:drawable/edit_text" />
 
-            <Button
-                android:id="@+id/btn_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Registrarse"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/purple"
-                android:layout_marginLeft="70dp"
-                android:padding="12dp"/>
+            <EditText
+                android:id="@+id/nombres"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:hint="Nombres"
+                android:inputType="text"
+                android:background="@android:drawable/edit_text" />
+
+            <EditText
+                android:id="@+id/apellidos"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:hint="Apellidos"
+                android:inputType="text"
+                android:background="@android:drawable/edit_text" />
+
+            <EditText
+                android:id="@+id/numeroTelefonico"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:hint="Teléfono"
+                android:inputType="number"
+                android:background="@android:drawable/edit_text" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:hint="Correo Electrónico"
+                android:inputType="textEmailAddress"
+                android:background="@android:drawable/edit_text" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:background="@android:drawable/edit_text" />
+
         </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="24dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btn_regresar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Regresar"
+            android:src="@drawable/flecha_register"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrarse" />
 
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>
